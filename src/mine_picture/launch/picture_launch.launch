@@ -1,0 +1,14 @@
+<launch>
+  <!--全局参数serial-->
+  <param name="position" value="/home/zxp/Pictures/jpg/*.jpg" />
+  <node name="picture_read" pkg="mine_picture" type="picture_read_node"
+   output="screen">
+  </node>
+  <!-- <include file="$(find mpic_write)/launch/mpci_write.launch">
+  </include> -->
+  <node name="picture_save" pkg="mine_picture" type="picture_save_node"
+   output="screen">
+  </node>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mine_picture)/config/picture_demo.rviz" required="true" />
+   <!-- <include file="$(find mpic_read)/include/mpic_write.launch.xml"/> -->
+</launch>
