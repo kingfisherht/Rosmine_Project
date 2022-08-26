@@ -1,7 +1,7 @@
 #ifndef MY_PICTURE_READ_H
 #define MY_PICTURE_READ_H
 #include "ros/ros.h"
-namespace mypicture
+namespace my_picture
 {
     class MyPictureReadData;
     class MyPictureRead final

@@ -7,10 +7,14 @@
 #include <glob.h>
 #include <vector>
 #include <iostream>
-namespace mypicture
+namespace my_picture
 {
     class MyPictureReadData
     {
+    public:
+        void initialize();
+        void publishFunction();
+        bool handleFunction(mine_picture::picture::Request &req, mine_picture::picture::Response &res); /* data */
     private:
         friend class MyPictureRead;
         int picture_index = 0;
@@ -20,28 +24,22 @@ namespace mypicture
         ros::ServiceServer mbot_service_;
         std::vector<std::string> img_path_;
         std::vector<cv::String> fn_;
-
-    public:
-        void initialize();
-        void publish_function();
-        bool handle_function(mine_picture::picture::Request &req, mine_picture::picture::Response &res); /* data */
     };
-    void MyPictureReadData::publish_function()
+    void MyPictureReadData::publishFunction()
     {
         image_transport::ImageTransport it(handle_);
         image_transport::Publisher pub = it.advertise("mpic/camera/image", 1);
         glob(pos_, fn_, false);
         size_t count = fn_.size();
-        for (size_t i = 0; i < count; i++)
+        for (size_t index = 0; index < count; index++)
         {
-            img_path_.push_back(fn_[i]);
+            img_path_.push_back(fn_[index]);
         }
         ros::Rate loop_rate(5);
         while (handle_.ok())
         {
             if (begin_ == true)
             {
-                ros::Rate loop_rate(5);
                 if (picture_index <= img_path_.size())
                 {
                     cv::Mat image = cv::imread(img_path_[picture_index], CV_LOAD_IMAGE_COLOR);
@@ -59,7 +57,7 @@ namespace mypicture
             }
         }
     }
-    bool MyPictureReadData::handle_function(mine_picture::picture::Request &req, mine_picture::picture::Response &res)
+    bool MyPictureReadData::handleFunction(mine_picture::picture::Request &req, mine_picture::picture::Response &res)
     {
         if (req.start == true)
         {
@@ -67,19 +65,19 @@ namespace mypicture
             picture_index = 0;
         }
         res.feedback = "Sucesses start" + std::to_string(req.start);
-        publish_function();
+        publishFunction();
         return true;
     }
 
     void MyPictureReadData::initialize()
     {
         handle_.getParam("position", pos_);
-        mbot_service_ = handle_.advertiseService("/mpicture/read", &MyPictureReadData::handle_function, this);
+        mbot_service_ = handle_.advertiseService("/mpicture/read", &MyPictureReadData::handleFunction, this);
     }
 
 }
 
-namespace mypicture
+namespace my_picture
 {
     MyPictureRead::MyPictureRead() : pimpl_(std::make_unique<MyPictureReadData>())
     {
