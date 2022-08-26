@@ -24,7 +24,7 @@ namespace mypicture
     public:
         void initialize();
         void publish_function();
-        void handle_function(mine_picture::picture::Request &req, mine_picture::picture::Response &res); /* data */
+        bool handle_function(mine_picture::picture::Request &req, mine_picture::picture::Response &res); /* data */
     };
     void MyPictureReadData::publish_function()
     {
@@ -55,12 +55,13 @@ namespace mypicture
             }
         }
     }
-  void MyPictureReadData::handle_function(mine_picture::picture::Request &req, mine_picture::picture::Response &res)
+    bool MyPictureReadData::handle_function(mine_picture::picture::Request &req, mine_picture::picture::Response &res)
     {
         if (req.start == true)
             begin_ = true;
         res.feedback = "Sucesses start" + std::to_string(req.start);
         publish_function();
+        return true;
     }
 
     void MyPictureReadData::initialize()

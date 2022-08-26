@@ -1,0 +1,8 @@
+prefix=/home/zxp/demo_demo/devel
+
+Name: mine_picture
+Description: Description of mine_picture
+Version: 0.0.0
+Cflags: -I/home/zxp/demo_demo/devel/include
+Libs: -L${prefix}/lib -lmpic_read
+Requires: message_runtime roscpp rospy std_msgs
