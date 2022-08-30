@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="calaction_demo" type="zxp_action_server" name="server1" output="screen"/>
+  <node pkg="calaction_demo" type="client_ac_demo" name="client1" output="screen"/>
+</launch>

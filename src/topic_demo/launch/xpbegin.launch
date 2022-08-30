@@ -1,0 +1,6 @@
+<launch>
+  <node name="xp_talker" pkg="topic_demo" type="talker" output="screen" launch-prefix="xterm -e gdb --args">
+  </node>
+ <node name="xp_sub" pkg="topic_demo" type="subpub" output="screen">
+  </node>
+</launch>

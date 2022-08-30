@@ -1,0 +1,12 @@
+<launch>
+   <!-- 加载的参数名字叫robot_description，具体内容是urdf相关模型的路径 -->
+	<param name="robot_description" textfile="$(find mbot_description)/urdf/mbot_with_kinect.urdf" />
+	<!-- 设置GUI参数，显示关节控制插件 -->
+	<param name="use_gui" value="true"/>
+	<!-- 运行joint_state_publisher节点，发布机器人的关节状态  -->
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+	<!-- 运行robot_state_publisher节点，发布tf  -->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+	<!-- 运行rviz可视化界面，保存每次打开之后的相关插件，保存到config文件夹下面 -->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find mbot_description)/config/mbot_urdf.rviz" required="true" />
+</launch>
