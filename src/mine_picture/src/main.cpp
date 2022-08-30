@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     signal(SIGSEGV, sig_handler);
     signal(SIGABRT, sig_handler);
     ros::init(argc, argv, "mbot_picture");
-    my_picture::MyPictureRead minpicture;
+    my_picture::MyPictureRead mine_picture;
     ros::spin();
     return 0;
 }
